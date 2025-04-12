@@ -50,3 +50,27 @@ Donde:
 ### 🔗 Fuente del dataset
 
 El conjunto de datos fue provisto por **Hadi Fanaee Tork** y es parte del repositorio de aprendizaje automático de la UCI. Se utiliza principalmente para fines educativos y de práctica en modelado predictivo.
+
+---
+
+### 🧪 Fase 1 - Exploración y modelado
+
+En esta fase se realiza:
+
+Carga de los datos y verificación de valores faltantes.
+
+Análisis exploratorio de variables (EDA).
+
+Ingeniería de características: extracción de hora, mes, día, año desde datetime.
+
+Visualización de correlaciones y comportamiento de la variable objetivo.
+
+Entrenamiento de modelos base:
+
+- 🎯 Random Forest
+
+- ⚡ XGBoost
+
+- 🌿 LightGBM
+
+Generación de archivos submission.csv para subir a Kaggle.
