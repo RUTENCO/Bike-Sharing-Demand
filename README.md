@@ -55,7 +55,8 @@ El conjunto de datos fue provisto por **Hadi Fanaee Tork** y es parte del reposi
 
 ### 🧪 Fase 1 - Exploración y Modelado con Notebook
 
-🔧 Requisitos previos
+#### 🔧 Requisitos previos
+
 Puedes ejecutar este proyecto directamente en Google Colab. Para ello:
 
 Descarga el notebook (EDA)_Bike_Sharing_Demand.ipynb.
@@ -70,7 +71,8 @@ Alternativamente, si deseas correrlo en tu máquina local, asegúrate de tener P
 pip install pandas numpy matplotlib seaborn scikit-learn xgboost lightgbm
 ```
 
-📝 Pasos para ejecutar el notebook
+#### 📝 Pasos para ejecutar el notebook
+
 Descarga los archivos del reto desde Kaggle:
 
 👉 https://www.kaggle.com/competitions/bike-sharing-demand/data
@@ -85,7 +87,7 @@ Sube estos archivos al entorno de ejecución de Google Colab (ícono de carpeta 
 
 Ejecuta el notebook (EDA)_Bike_Sharing_Demand.ipynb siguiendo las celdas paso a paso.
 
-⚙️ ¿Qué hace el notebook?
+#### ⚙️ ¿Qué hace el notebook?
 
 Carga de datos (train.csv, test.csv)
 
@@ -111,14 +113,14 @@ Evaluación con la métrica RMSLE
 
 Generación de archivos de envío (submission.csv) listos para subir a Kaggle
 
-📂 Archivos generados
+#### 📂 Archivos generados
 submission_rf.csv → predicciones usando Random Forest
 
 submission_lgb.csv → predicciones usando LightGBM
 
 submission_xgb.csv → predicciones usando XGBoost
 
-🚀 Cómo subir a Kaggle
+#### 🚀 Cómo subir a Kaggle
 Ve al apartado "Submit Predictions" del reto:
 
 👉 https://www.kaggle.com/competitions/bike-sharing-demand/submit
