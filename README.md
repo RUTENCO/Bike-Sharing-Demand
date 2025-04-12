@@ -1,8 +1,13 @@
-## 📝 Descripción del Reto - Bike Sharing Demand (Kaggle)
+## 🚲 Bike Sharing Demand - Kaggle Challenge
 
-El desafío **“Bike Sharing Demand”** de Kaggle consiste en predecir la demanda de alquiler de bicicletas por hora en el sistema **Capital Bikeshare** de Washington D.C., combinando datos históricos de uso con variables climáticas y temporales.
+---
 
-Los sistemas de bicicletas compartidas generan grandes volúmenes de datos al registrar el inicio, duración y ubicación de los viajes. Esta competencia plantea el reto de modelar dichos patrones para anticipar cuántas bicicletas serán alquiladas en cada hora del día.
+## 📌 Descripción del reto
+Los sistemas de bicicletas compartidas permiten alquilar bicicletas por periodos cortos a través de estaciones automáticas distribuidas por la ciudad. En este desafío, se pide predecir cuántas bicicletas serán alquiladas en un determinado momento, utilizando información sobre el clima, la fecha y otros factores.
+
+El dataset contiene información horaria de dos años, y el entrenamiento se realiza con los primeros 19 días de cada mes, mientras que las predicciones deben hacerse desde el día 20 en adelante.
+
+La métrica de evaluación utilizada es el Root Mean Squared Logarithmic Error (RMSLE).
 
 ---
 
