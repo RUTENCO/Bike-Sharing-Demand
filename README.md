@@ -1,7 +1,5 @@
 ## 🚲 Bike Sharing Demand - Kaggle Challenge
 
----
-
 ## 📌 Descripción del reto
 Los sistemas de bicicletas compartidas permiten alquilar bicicletas por periodos cortos a través de estaciones automáticas distribuidas por la ciudad. En este desafío, se pide predecir cuántas bicicletas serán alquiladas en un determinado momento, utilizando información sobre el clima, la fecha y otros factores.
 
@@ -9,7 +7,6 @@ El dataset contiene información horaria de dos años, y el entrenamiento se rea
 
 La métrica de evaluación utilizada es el Root Mean Squared Logarithmic Error (RMSLE).
 
----
 
 ### 📦 Objetivo
 
