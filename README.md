@@ -35,9 +35,7 @@ Predecir el número total de alquileres (`count`) por hora, utilizando únicamen
 
 Las predicciones se evalúan con la métrica **RMSLE (Root Mean Squared Logarithmic Error)**, que penaliza más las predicciones por debajo del valor real y es adecuada para distribuciones sesgadas con valores extremos.
 
-\[
-\text{RMSLE} = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} \left( \log(p_i + 1) - \log(a_i + 1) \right)^2 }
-\]
+![Captura de la formula RMSLE](img.png)
 
 Donde:
 - \( p_i \): valor predicho
