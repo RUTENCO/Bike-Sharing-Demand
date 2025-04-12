@@ -53,24 +53,80 @@ El conjunto de datos fue provisto por **Hadi Fanaee Tork** y es parte del reposi
 
 ---
 
-### 🧪 Fase 1 - Exploración y modelado
+### 🧪 Fase 1 - Exploración y Modelado con Notebook
 
-En esta fase se realiza:
+🔧 Requisitos previos
+Puedes ejecutar este proyecto directamente en Google Colab. Para ello:
 
-Carga de los datos y verificación de valores faltantes.
+Descarga el notebook (EDA)_Bike_Sharing_Demand.ipynb.
 
-Análisis exploratorio de variables (EDA).
+Sube el archivo a tu Google Drive.
 
-Ingeniería de características: extracción de hora, mes, día, año desde datetime.
+Ábrelo desde Colab: haz clic derecho sobre el archivo en Drive → Abrir con → Google Colab.
 
-Visualización de correlaciones y comportamiento de la variable objetivo.
+Alternativamente, si deseas correrlo en tu máquina local, asegúrate de tener Python 3.8+ y ejecuta:
 
-Entrenamiento de modelos base:
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn xgboost lightgbm
+```
 
-- 🎯 Random Forest
+📝 Pasos para ejecutar el notebook
+Descarga los archivos del reto desde Kaggle:
 
-- ⚡ XGBoost
+👉 https://www.kaggle.com/competitions/bike-sharing-demand/data
 
-- 🌿 LightGBM
+Asegúrate de tener los siguientes archivos:
 
-Generación de archivos submission.csv para subir a Kaggle.
+train.csv
+
+test.csv
+
+Sube estos archivos al entorno de ejecución de Google Colab (ícono de carpeta → botón de subir archivos).
+
+Ejecuta el notebook (EDA)_Bike_Sharing_Demand.ipynb siguiendo las celdas paso a paso.
+
+⚙️ ¿Qué hace el notebook?
+
+Carga de datos (train.csv, test.csv)
+
+Limpieza y verificación de valores faltantes
+
+Análisis exploratorio con visualizaciones de tendencias
+
+Ingeniería de características:
+
+Extracción de hour, day, month, year desde la columna datetime
+
+Conversión de variables si es necesario
+
+Entrenamiento de modelos:
+
+🎲 Random Forest → genera submission_rf.csv
+
+💡 LightGBM → genera submission_lgb.csv
+
+⚡ XGBoost → genera submission_xgb.csv
+
+Evaluación con la métrica RMSLE
+
+Generación de archivos de envío (submission.csv) listos para subir a Kaggle
+
+📂 Archivos generados
+submission_rf.csv → predicciones usando Random Forest
+
+submission_lgb.csv → predicciones usando LightGBM
+
+submission_xgb.csv → predicciones usando XGBoost
+
+🚀 Cómo subir a Kaggle
+Ve al apartado "Submit Predictions" del reto:
+
+👉 https://www.kaggle.com/competitions/bike-sharing-demand/submit
+
+Carga alguno de los archivos .csv generados (por ejemplo, submission_lgb.csv).
+
+Asigna un nombre a tu envío.
+
+Haz clic en Make Submission.
+
+Kaggle calculará la puntuación basada en la métrica RMSLE.
