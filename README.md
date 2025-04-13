@@ -123,7 +123,7 @@ submission_xgb.csv → predicciones usando XGBoost
 #### 🚀 Cómo subir a Kaggle
 Ve al apartado "Submit Predictions" del reto:
 
-👉 https://www.kaggle.com/competitions/bike-sharing-demand/submit
+👉 [https://www.kaggle.com/competitions/bike-sharing-demand/submit](https://www.kaggle.com/competitions/bike-sharing-demand/overview)
 
 Carga alguno de los archivos .csv generados (por ejemplo, submission_lgb.csv).
 
