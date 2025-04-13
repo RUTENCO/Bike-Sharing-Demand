@@ -59,7 +59,7 @@ El conjunto de datos fue provisto por **Hadi Fanaee Tork** y es parte del reposi
 
 Puedes ejecutar este proyecto directamente en Google Colab. Para ello:
 
-Descarga el notebook (EDA)_Bike_Sharing_Demand.ipynb.
+Descarga el notebook **(EDA)_Bike_Sharing_Demand.ipynb**.
 
 Sube el archivo a tu Google Drive.
 
@@ -79,9 +79,9 @@ Descarga los archivos del reto desde Kaggle:
 
 Asegúrate de tener los siguientes archivos:
 
-train.csv
+**train.csv**
 
-test.csv
+**test.csv**
 
 Sube estos archivos al entorno de ejecución de Google Colab (ícono de carpeta → botón de subir archivos).
 
@@ -103,22 +103,22 @@ Conversión de variables si es necesario
 
 Entrenamiento de modelos:
 
-🎲 Random Forest → genera submission_rf.csv
+🎲 Random Forest 
 
-💡 LightGBM → genera submission_lgb.csv
+💡 LightGBM 
 
-⚡ XGBoost → genera submission_xgb.csv
+⚡ XGBoost 
 
-Evaluación con la métrica RMSLE
+Evaluación con la métrica **RMSLE**
 
 Generación de archivos de envío (submission.csv) listos para subir a Kaggle
 
 #### 📂 Archivos generados
-submission_rf.csv → predicciones usando Random Forest
+**submission_rf.csv** → predicciones usando Random Forest
 
-submission_lgb.csv → predicciones usando LightGBM
+**submission_lgb.csv** → predicciones usando LightGBM
 
-submission_xgb.csv → predicciones usando XGBoost
+**submission_xgb.csv** → predicciones usando XGBoost
 
 #### 🚀 Cómo subir a Kaggle
 Ve al apartado "Submit Predictions" del reto:
