@@ -73,7 +73,7 @@ pip install pandas numpy matplotlib seaborn scikit-learn xgboost lightgbm
 
 #### 📝 Pasos para ejecutar el notebook
 
-Descarga los archivos del reto desde Kaggle:
+Únete al reto en Kaggle y acepta las reglas para habilitar la descarga de los datos:
 
 👉 https://www.kaggle.com/competitions/bike-sharing-demand/data
 
