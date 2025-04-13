@@ -71,6 +71,16 @@ Alternativamente, si deseas correrlo en tu máquina local, asegúrate de tener P
 pip install pandas numpy matplotlib seaborn scikit-learn xgboost lightgbm
 ```
 
+**Nota:**  
+La solución presentada en este notebook se basa en trabajos previos de la comunidad de Kaggle.  
+En particular, se han tomado ideas y enfoques de los siguientes notebooks:
+
+- 📘 [**biketest** por ensari](https://www.kaggle.com/code/ensari/biketest)
+- 📗 [**Bike Sharing Demand** por jaeraklim](https://www.kaggle.com/code/jaeraklim/bike-sharing-demand)
+
+Estas soluciones sirvieron como guía para realizar la ingeniería de características, entrenar modelos como Random Forest, XGBoost y LightGBM, y estructurar la lógica de predicción para el envío de resultados a la competencia.
+
+
 #### 📝 Pasos para ejecutar el notebook
 
 Únete al reto en Kaggle y acepta las reglas para habilitar la descarga de los datos:
