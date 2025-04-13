@@ -53,7 +53,7 @@ El conjunto de datos fue provisto por **Hadi Fanaee Tork** y es parte del reposi
 
 ---
 
-### 🧪 Fase 1 - Exploración y Modelado con Notebook
+### 🧠 Fase 1 - Exploración y Modelado con Notebook
 
 #### 🔧 Requisitos previos
 
