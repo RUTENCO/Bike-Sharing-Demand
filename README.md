@@ -65,12 +65,6 @@ Sube el archivo a tu Google Drive.
 
 Ábrelo desde Colab: haz clic derecho sobre el archivo en Drive → Abrir con → Google Colab.
 
-Alternativamente, si deseas correrlo en tu máquina local, asegúrate de tener Python 3.8+ y ejecuta:
-
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn xgboost lightgbm
-```
-
 **Nota:**  
 La solución presentada en este notebook se basa en trabajos previos de la comunidad de Kaggle.  
 En particular, se han tomado ideas y enfoques de los siguientes notebooks:
