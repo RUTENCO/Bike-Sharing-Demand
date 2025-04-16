@@ -75,19 +75,32 @@ En particular, se han tomado ideas y enfoques de los siguientes notebooks:
 Estas soluciones sirvieron como guía para realizar la ingeniería de características, entrenar modelos como Random Forest, XGBoost y LightGBM, y estructurar la lógica de predicción para el envío de resultados a la competencia.
 
 
-#### 📝 Pasos para ejecutar el notebook
+📝 **Pasos para ejecutar el notebook**
 
-Únete al reto en Kaggle y acepta las reglas para habilitar la descarga de los datos:
+1. Únete al reto en Kaggle y acepta las reglas para habilitar la descarga de los datos:
 
-👉 https://www.kaggle.com/competitions/bike-sharing-demand/data
+   👉 https://www.kaggle.com/competitions/bike-sharing-demand/data
 
-Asegúrate de tener los siguientes archivos:
+2. Asegúrate de tener los siguientes archivos descargados desde Kaggle:
 
-**train.csv**
+   - `train.csv`
+   - `test.csv`
 
-**test.csv**
+3. Existen dos formas de acceder a estos archivos desde el notebook en Google Colab:
 
-Sube estos archivos al entorno de ejecución de Google Colab (ícono de carpeta → botón de subir archivos).
+   - **Opción A**: Subir los archivos directamente al entorno de Colab:
+     - Haz clic en el ícono de carpeta (a la izquierda en Colab).
+     - Luego haz clic en el ícono de subir archivo (flecha hacia arriba).
+     - Carga `train.csv` y `test.csv`.
+
+   - **Opción B**: Cargar archivos desde tu Google Drive:
+     - Conecta Colab a tu Google Drive al ejecutar este código en una celda:
+       ```python
+       from google.colab import drive
+       drive.mount('/content/drive')
+       ```
+     - Coloca los archivos en una carpeta de tu Drive (por ejemplo, `/content/drive/MyDrive/bike-sharing/`)
+     - Luego carga los datos desde esa ruta en tu notebook.
 
 Ejecuta el notebook (EDA)_Bike_Sharing_Demand.ipynb siguiendo las celdas paso a paso.
 
