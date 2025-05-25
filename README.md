@@ -57,6 +57,8 @@ El conjunto de datos fue provisto por **Hadi Fanaee Tork** y es parte del reposi
 
 ---
 
+En esta fase vamos a unirnos a la competencia de Kaggle, y explorar el Notebook **(EDA)_Bike_Sharing_Demand.ipynb**. 
+
 #### 🔧 Requisitos previos
 
 Puedes ejecutar este proyecto directamente en Google Colab. Para ello:
@@ -156,9 +158,9 @@ Kaggle calculará la puntuación basada en la métrica RMSLE.
 
 ## ⚙️ Fase 2 – Despliegue en contenedor Docker
 
-En esta fase vamos a empaquetar todo el flujo de **entrenamiento** y **predicción** en un contenedor Docker, de manera que solo necesites un par de comandos para ejecutar tu modelo en cualquier entorno.
-
 ---
+
+En esta fase vamos a empaquetar todo el flujo de **entrenamiento** y **predicción** en un contenedor Docker, de manera que solo necesites un par de comandos para ejecutar tu modelo en cualquier entorno.
 
 ### 🖥️ 0. Prerrequisitos
 
@@ -178,7 +180,6 @@ En esta fase vamos a empaquetar todo el flujo de **entrenamiento** y **predicci�
    - **test.csv**: el CSV de Kaggle que debes predecir (`datetime,…` sin `count`).  
    - **data/** también recibirá `model.pkl`, `scaler.pkl` y `submission.csv` tras la ejecución.
 
----
 
 ### 🐳 1. Construcción de la imagen Docker
 
@@ -194,7 +195,7 @@ docker build -t bikeshare .
 
 - . → indica que el contexto (Dockerfile y scripts) está en el directorio actual.
 
----
+
 
 ### 🧠 2. Entrenamiento del modelo
 
@@ -247,7 +248,7 @@ Explicación de cada parte:
    
   - scaler.pkl → el objeto StandardScaler para procesar test.
 
----
+
 
 ### 🔮 3. Generar predicciones
 
@@ -291,7 +292,7 @@ Qué hace predict.py
       2011-01-20 01:00:00, 8
       …
       ```
----
+
 
 ### ✅ Verificación
 
@@ -345,7 +346,7 @@ Explicación paso a paso:
   - `-c "ls -l /data"`
    Le dice a bash que ejecute el comando ls -l /data.
 
----
+
 
 Con esto tendrás un contendor reproducible que:
 
