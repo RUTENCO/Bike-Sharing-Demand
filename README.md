@@ -340,6 +340,16 @@ Listado de archivos antes y después de cada paso:
      -c "ls -l /data"
    ```
 
+Resultado: 
+   ```bash
+   total 2468
+   -rw-r--r-- 1 root root 1387488 May 25 19:00 model.pkl
+   -rw-r--r-- 1 root root    1351 May 25 19:00 scaler.pkl
+   -rw-r--r-- 1 root root  152818 May 25 19:00 submission.csv
+   -rwxrwxrwx 1 root root  323856 May 25 03:52 test.csv
+   -rwxrwxrwx 1 root root  648353 May 25 03:52 train.csv
+   ```
+
 Comprobación de formato de las primeras líneas:
 
    En Windows PowerShell
@@ -355,6 +365,15 @@ Comprobación de formato de las primeras líneas:
    ```bash
    docker run --rm -v "$PWD/../data:/data" --entrypoint bash bikeshare \
      -c "head -n 5 /data/submission.csv"
+   ```
+
+Resultado: 
+   ```bash
+   datetime,count
+   2011-01-20 00:00:00,17
+   2011-01-20 01:00:00,1
+   2011-01-20 02:00:00,0
+   2011-01-20 03:00:00,1
    ```
 
 Explicación paso a paso:
@@ -373,7 +392,6 @@ Explicación paso a paso:
    
   - `-c "ls -l /data"`
    Le dice a bash que ejecute el comando ls -l /data.
-
 
 Con esto tendrás un contendor reproducible que:
 
