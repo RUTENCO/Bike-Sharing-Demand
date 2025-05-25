@@ -166,7 +166,7 @@ Kaggle calculará la puntuación basada en la métrica RMSLE.
 
 En esta fase vamos a empaquetar todo el flujo de **entrenamiento** y **predicción** en un contenedor Docker, de manera que solo necesites un par de comandos para ejecutar tu modelo en cualquier entorno.
 
-En la carpeta **`fase-2/`** encontrarás **tres archivos** fundamentales:
+En la carpeta 📁 **`fase-2/`** encontrarás **tres archivos** fundamentales:
 
 | Archivo         | Descripción                                                                                      |
 |-----------------|--------------------------------------------------------------------------------------------------|
@@ -210,7 +210,7 @@ En la carpeta **`fase-2/`** encontrarás **tres archivos** fundamentales:
 
 ### 🐳 1. Construcción de la imagen Docker
 
-Ejecuta este comando en la carpeta `fase-2/` (donde está tu Dockerfile):
+Abre una terminal y ejecuta este comando en la carpeta `fase-2/` (donde está tu Dockerfile):
 
 ```bash
 docker build -t bikeshare .
