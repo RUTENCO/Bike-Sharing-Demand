@@ -1,4 +1,8 @@
-## 🚲 Bike Sharing Demand - Kaggle Challenge
+---
+
+### 🚲 Bike Sharing Demand - Kaggle Challenge
+
+---
 
 ### 📌 Descripción del reto
 Los sistemas de bicicletas compartidas permiten alquilar bicicletas por periodos cortos a través de estaciones automáticas distribuidas por la ciudad. En este desafío, se pide predecir cuántas bicicletas serán alquiladas en un determinado momento, utilizando información sobre el clima, la fecha y otros factores.
@@ -162,6 +166,29 @@ Kaggle calculará la puntuación basada en la métrica RMSLE.
 
 En esta fase vamos a empaquetar todo el flujo de **entrenamiento** y **predicción** en un contenedor Docker, de manera que solo necesites un par de comandos para ejecutar tu modelo en cualquier entorno.
 
+En la carpeta **`fase-2/`** encontrarás **tres archivos** fundamentales:
+
+| Archivo         | Descripción                                                                                      |
+|-----------------|--------------------------------------------------------------------------------------------------|
+| `train.py`      | Script que:                                                                                      |
+|                 | 1. Carga `train.csv` desde `/data/train.csv`                                                     |
+|                 | 2. Convierte `datetime` y extrae `hour`, `day`, `month`, `year`                                  |
+|                 | 3. Elimina outliers (`count`) y escala las features con `StandardScaler`                         |
+|                 | 4. Entrena un `LGBMRegressor` y guarda el modelo en `/data/model.pkl`                            |
+|                 | 5. Guarda el objeto `StandardScaler` en `/data/scaler.pkl`                                       |
+| `predict.py`    | Script que:                                                                                      |
+|                 | 1. Carga `test.csv` desde `/data/test.csv`                                                       |
+|                 | 2. Convierte `datetime` y extrae las mismas variables temporales                                 |
+|                 | 3. Aplica el `StandardScaler` guardado (`scaler.pkl`) a las features                             |
+|                 | 4. Carga el modelo entrenado (`model.pkl`) y genera predicciones no negativas                    |
+|                 | 5. Crea `submission.csv` en `/data/submission.csv` con columnas `datetime,count`                 |
+| `Dockerfile`    | Define la imagen Docker:                                                                         |
+|                 | - Base: `python:3.8-slim`                                                                        |
+|                 | - Instala `libgomp1` (requisito de LightGBM) y dependencias Python (`pandas`, `lightgbm`, etc.)  |
+|                 | - Copia `train.py` y `predict.py`                                                                |
+|                 | - Monta `/data` como volumen para montar `train.csv`, `test.csv`, y crear `model.pkl`, etc.      |
+
+
 ### 🖥️ 0. Prerrequisitos
 
 1. **Instalar Docker Desktop**  
@@ -294,41 +321,42 @@ Qué hace predict.py
       ```
 
 
-### ✅ Verificación
+### ✅ 4. Verificación
 
 Listado de archivos antes y después de cada paso:
 
-En Windows PowerShell
-```bash
-docker run --rm `
-  -v "${PWD}\..\data:/data" `
-  --entrypoint bash `
-  bikeshare `
-  -c "ls -l /data"
-```
-
-En Linux /bash
-```bash
-docker run --rm -v "$PWD/../data:/data" --entrypoint bash bikeshare \
-  -c "ls -l /data"
-```
+   En Windows PowerShell
+   ```bash
+   docker run --rm `
+     -v "${PWD}\..\data:/data" `
+     --entrypoint bash `
+     bikeshare `
+     -c "ls -l /data"
+   ```
+   
+   En Linux /bash
+   ```bash
+   docker run --rm -v "$PWD/../data:/data" --entrypoint bash bikeshare \
+     -c "ls -l /data"
+   ```
 
 Comprobación de formato de las primeras líneas:
 
-En Windows PowerShell
-```bash
-docker run --rm `
-  -v "${PWD}\..\data:/data" `
-  --entrypoint bash `
-  bikeshare `
-  -c "head -n 5 /data/submission.csv"
-```
+   En Windows PowerShell
+   ```bash
+   docker run --rm `
+     -v "${PWD}\..\data:/data" `
+     --entrypoint bash `
+     bikeshare `
+     -c "head -n 5 /data/submission.csv"
+   ```
+   
+   En Linux /bash
+   ```bash
+   docker run --rm -v "$PWD/../data:/data" --entrypoint bash bikeshare \
+     -c "head -n 5 /data/submission.csv"
+   ```
 
-En Linux /bash
-```bash
-docker run --rm -v "$PWD/../data:/data" --entrypoint bash bikeshare \
-  -c "head -n 5 /data/submission.csv"
-```
 Explicación paso a paso:
 
   - docker run --rm
@@ -345,7 +373,6 @@ Explicación paso a paso:
    
   - `-c "ls -l /data"`
    Le dice a bash que ejecute el comando ls -l /data.
-
 
 
 Con esto tendrás un contendor reproducible que:
