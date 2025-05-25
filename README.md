@@ -149,3 +149,200 @@ Asigna un nombre a tu envío.
 Haz clic en Make Submission.
 
 Kaggle calculará la puntuación basada en la métrica RMSLE.
+
+
+## ⚙️ Fase 2 – Despliegue en contenedor Docker
+
+En esta fase vamos a empaquetar todo el flujo de **entrenamiento** y **predicción** en un contenedor Docker, de manera que solo necesites un par de comandos para ejecutar tu modelo en cualquier entorno.
+
+---
+
+### 🖥️ 0. Prerrequisitos
+
+1. **Instalar Docker Desktop**  
+   - Windows Pro/Enterprise/Education: instalación nativa con Hyper-V.  
+   - Windows Home: habilita WSL 2 (Windows Subsystem for Linux v2) y marca “Use the WSL 2 based engine” en Settings → General.  
+   - Linux (Ubuntu, etc.): instala Docker Engine siguiendo la [documentación oficial](https://docs.docker.com/engine/install/).
+
+2. **Arrancar Docker**  
+   - En Windows: abre **Docker Desktop** y espera a que el icono de la ballena en la bandeja se ponga verde (“Docker is running”).  
+   - En Linux: asegúrate de que el servicio `docker` esté activo (`systemctl status docker`).
+
+3. **Estructura de carpetas**  
+   En la raíz de tu proyecto `Bike-Sharing-Demand/`, crea una carpeta llamada `data/` y coloca dentro:
+   
+   - **train.csv**: el CSV original de Kaggle con las columnas `datetime,…,count`.  
+   - **test.csv**: el CSV de Kaggle que debes predecir (`datetime,…` sin `count`).  
+   - **data/** también recibirá `model.pkl`, `scaler.pkl` y `submission.csv` tras la ejecución.
+
+---
+
+### 🐳 1. Construcción de la imagen Docker
+
+Ejecuta este comando en la carpeta `fase-2/` (donde está tu Dockerfile):
+
+```bash
+docker build -t bikeshare .
+```
+
+- docker build → construye una nueva imagen Docker.
+
+- -t bikeshare → etiqueta la imagen como bikeshare (nombre fácil de recordar).
+
+- . → indica que el contexto (Dockerfile y scripts) está en el directorio actual.
+
+
+### 🧠 2. Entrenamiento del modelo
+
+Una vez construida la imagen, monta tu carpeta data/ como volumen en /data dentro del contenedor para entrenar, así:
+
+En Windows PowerShell
+```bash
+docker run --rm `
+  -v "${PWD}\..\data:/data" `             # Monta Bike-Sharing-Demand/data ⇒ /data
+  bikeshare `                             # Usa la imagen bikeshare
+  train.py --input_file /data/train.csv ` # Script de entrenamiento
+           --model_file /data/model.pkl ` # Guarda modelo entrenado
+           --scaler_file /data/scaler.pkl `# Guarda el scaler
+           --overwrite_model              # Sobrescribe si ya existe
+```
+En Linux /bash
+```bash
+docker run --rm \
+  -v "$PWD/../data:/data" \
+  bikeshare \
+  train.py --input_file  /data/train.csv \
+           --model_file  /data/model.pkl \
+           --scaler_file /data/scaler.pkl \
+           --overwrite_model
+```
+
+Explicación de cada parte:
+
+  - docker run --rm → lanza un contenedor y lo elimina al terminar.
+   
+  - -v host_path:container_path → monta tu carpeta local data/ en /data dentro del contenedor.
+   
+  - bikeshare → la imagen que construimos.
+   
+  - train.py --input_file … → script que:
+   
+  - Carga train.csv.
+   
+  - Extrae hour, day, month, year.
+   
+  - Elimina outliers y escala con StandardScaler.
+   
+  - Entrena LGBMRegressor.
+   
+  - Guarda el modelo y el scaler en /data/model.pkl y /data/scaler.pkl.
+   
+  - Al terminar verás en tu carpeta data/:
+   
+  - model.pkl → el modelo LightGBM entrenado.
+   
+  - scaler.pkl → el objeto StandardScaler para procesar test.
+
+### 🔮 3. Generar predicciones
+
+Con el modelo y el scaler ya en data/, monta de nuevo y corre:
+
+En Windows PowerShell
+```bash
+docker run --rm `
+  -v "${PWD}\..\data:/data" `
+  bikeshare `
+  predict.py --input_file       /data/test.csv `   # Test sin etiquetas
+             --model_file       /data/model.pkl `  # Modelo entrenado
+             --scaler_file      /data/scaler.pkl ` # Mismo scaler usado en train
+             --predictions_file /data/submission.csv  # Salida de predicciones
+```
+
+En Linux /bash
+```bash
+docker run --rm \
+  -v "$PWD/../data:/data" \
+  bikeshare \
+  predict.py --input_file       /data/test.csv \
+             --model_file       /data/model.pkl \
+             --scaler_file      /data/scaler.pkl \
+             --predictions_file /data/submission.csv
+```
+Qué hace predict.py
+
+  - Valida que test.csv, model.pkl y scaler.pkl existan.
+   
+  - Carga test.csv, convierte datetime, extrae variables temporales.
+   
+  - Aplica el StandardScaler al set de features.
+   
+  - Carga el modelo y genera predicciones no negativas.
+   
+  - Crea submission.csv con columnas:
+      ```bash
+            datetime,count
+      2011-01-20 00:00:00,12
+      2011-01-20 01:00:00, 8
+      …
+      ```
+
+### ✅ Verificación
+
+Listado de archivos antes y después de cada paso:
+
+En Windows PowerShell
+```bash
+docker run --rm `
+  -v "${PWD}\..\data:/data" `
+  --entrypoint bash `
+  bikeshare `
+  -c "ls -l /data"
+```
+
+En Linux /bash
+```bash
+docker run --rm -v "$PWD/../data:/data" --entrypoint bash bikeshare \
+  -c "ls -l /data"
+```
+
+Comprobación de formato de las primeras líneas:
+
+En Windows PowerShell
+```bash
+docker run --rm `
+  -v "${PWD}\..\data:/data" `
+  --entrypoint bash `
+  bikeshare `
+  -c "head -n 5 /data/submission.csv"
+```
+
+En Linux /bash
+```bash
+docker run --rm -v "$PWD/../data:/data" --entrypoint bash bikeshare \
+  -c "head -n 5 /data/submission.csv"
+```
+Explicación paso a paso:
+
+  - docker run --rm
+   Arranca un contenedor y lo elimina al terminar.
+   
+  - `-v "${PWD}\..\data:/data"`
+   Monta tu carpeta local Bike-Sharing-Demand/data (una carpeta arriba de fase-2) en /data del contenedor.
+   
+  - `--entrypoint bash`
+   Anula el ENTRYPOINT por defecto (python) y usa bash.
+   
+  - bikeshare
+   Nombre de la imagen.
+   
+  - `-c "ls -l /data"`
+   Le dice a bash que ejecute el comando ls -l /data.
+
+
+Con esto tendrás un contendor reproducible que:
+
+  - Entrena tu modelo con un solo comando.
+   
+  - Predice y genera el CSV listo para subir a Kaggle.
+   
+  - Mantiene tu carpeta data/ como único punto de montaje, evitando confusiones con rutas.      
