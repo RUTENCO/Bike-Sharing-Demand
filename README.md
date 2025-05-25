@@ -248,6 +248,18 @@ docker run --rm \
            --scaler_file /data/scaler.pkl \
            --overwrite_model
 ```
+Posible resultado:
+   ```bash
+   2025-05-25 21:10:58.607 | INFO     | __main__:load_and_preprocess:40 - Outliers eliminados: 147 filas
+   2025-05-25 21:10:58.615 | INFO     | __main__:train_and_save:62 - Entrenando modelo LGBM
+   2025-05-25 21:11:00.609 | SUCCESS  | __main__:train_and_save:68 - Modelo guardado en /data/model.pkl
+   2025-05-25 21:11:00.610 | SUCCESS  | __main__:train_and_save:69 - Scaler guardado en /data/scaler.pkl
+   [LightGBM] [Info] Auto-choosing col-wise multi-threading, the overhead of testing was 0.000524 seconds.
+   You can set `force_col_wise=true` to remove the overhead.
+   [LightGBM] [Info] Total Bins 297
+   [LightGBM] [Info] Number of data points in the train set: 10739, number of used features: 12
+   [LightGBM] [Info] Start training from score 183.003818
+   ```
 
 Explicación de cada parte:
 
@@ -302,6 +314,11 @@ docker run --rm \
              --scaler_file      /data/scaler.pkl \
              --predictions_file /data/submission.csv
 ```
+Posible resultado:
+   ```bash
+   2025-05-25 21:12:33.207 | SUCCESS  | __main__:predict_and_save:54 - Predicciones guardadas en: /data/submission.csv
+   ```
+
 Qué hace predict.py
 
   - Valida que test.csv, model.pkl y scaler.pkl existan.
@@ -340,7 +357,7 @@ Listado de archivos antes y después de cada paso:
      -c "ls -l /data"
    ```
 
-Resultado: 
+Posible resultado: 
    ```bash
    total 2468
    -rw-r--r-- 1 root root 1387488 May 25 19:00 model.pkl
@@ -367,7 +384,7 @@ Comprobación de formato de las primeras líneas:
      -c "head -n 5 /data/submission.csv"
    ```
 
-Resultado: 
+Posible resultado: 
    ```bash
    datetime,count
    2011-01-20 00:00:00,17
