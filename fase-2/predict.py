@@ -1,4 +1,3 @@
-# predict.py
 import os
 import argparse
 import pandas as pd
@@ -6,57 +5,67 @@ import numpy as np
 import joblib
 from loguru import logger
 
-def main():
-    # 1. Definición de argumentos de línea de comandos
-    parser = argparse.ArgumentParser(description="Genera predicciones para Bike Sharing Demand")
-    parser.add_argument("--input_file",       required=True, help="Ruta al CSV de test (test.csv)")
-    parser.add_argument("--model_file",       required=True, help="Ruta al modelo entrenado (model.pkl)")
-    parser.add_argument("--scaler_file",      required=True, help="Ruta al scaler usado (scaler.pkl)")
-    parser.add_argument("--predictions_file", required=True, help="Ruta donde se guardará submission.csv")
-    args = parser.parse_args()
+def parse_args():
+    """
+    Define y parsea los argumentos de entrada para el script de predicción.
+    --input_file: CSV de test (test.csv)
+    --model_file: Ruta al modelo entrenado .pkl
+    --scaler_file: Ruta al scaler .pkl
+    --predictions_file: Archivo de salida submission.csv
+    """
+    parser = argparse.ArgumentParser(description="Predice demanda de Bike Sharing")
+    parser.add_argument("--input_file",       required=True, help="CSV de prueba (test.csv)")
+    parser.add_argument("--model_file",       required=True, help="Modelo entrenado (.pkl)")
+    parser.add_argument("--scaler_file",      required=True, help="Scaler usado (.pkl)")
+    parser.add_argument("--predictions_file", required=True, help="Salida CSV (submission.csv)")
+    return parser.parse_args()
 
-    # 2. Validar que los archivos existen
-    if not os.path.isfile(args.input_file):
-        logger.error(f"Test no existe: {args.input_file}")
-        exit(-1)
-    if not os.path.isfile(args.model_file) or not os.path.isfile(args.scaler_file):
-        logger.error("Modelo o scaler no encontrados")
-        exit(-1)
-
-    # 3. Cargar datos de test y parsear datetime
-    logger.info("Cargando test y extrayendo características")
-    df = pd.read_csv(args.input_file)
+def load_and_transform(input_path, scaler_path):
+    """
+    Carga test.csv, parsea 'datetime', extrae variables temporales,
+    aplica scaler guardado y devuelve DataFrame y matriz escalada.
+    """
+    df = pd.read_csv(input_path)
     df["datetime"] = pd.to_datetime(df["datetime"], errors="coerce")
-
-    # 4. Ingeniería de características temporales
     df["hour"]  = df["datetime"].dt.hour
     df["day"]   = df["datetime"].dt.day
     df["month"] = df["datetime"].dt.month
     df["year"]  = df["datetime"].dt.year
 
-    # 5. Preparar matriz de features
     X_test = df.drop(columns=["datetime"])
-
-    # 6. Cargar scaler y transformar las features
-    scaler   = joblib.load(args.scaler_file)
+    scaler = joblib.load(scaler_path)
     X_scaled = scaler.transform(X_test)
+    return df, X_scaled
 
-    # 7. Cargar modelo y predecir
-    model = joblib.load(args.model_file)
+def predict_and_save(df, X_scaled, model_path, output_path):
+    """
+    Carga modelo entrenado, genera predicciones no negativas,
+    crea submission.csv con 'datetime,count' y lo guarda.
+    """
+    model = joblib.load(model_path)
     preds = model.predict(X_scaled)
+    preds = np.maximum(0, preds).round().astype(int)
 
-    # 8. Asegurar predicciones ≥ 0 y enteros
-    preds = np.round(np.maximum(0, preds)).astype(int)
-
-    # 9. Construir DataFrame de envío con formato datetime completo
     submission = pd.DataFrame({
         "datetime": df["datetime"].dt.strftime("%Y-%m-%d %H:%M:%S"),
         "count":    preds
     })
+    submission.to_csv(output_path, index=False)
+    logger.success(f"Predicciones guardadas en: {output_path}")
 
-    # 10. Guardar CSV sin índice
-    submission.to_csv(args.predictions_file, index=False)
-    logger.success(f"✔ Predicciones guardadas en: {args.predictions_file}")
+def main():
+    args = parse_args()
+
+    # Validaciones
+    if not os.path.isfile(args.input_file):
+        logger.error(f"No existe test: {args.input_file}")
+        exit(-1)
+    if not os.path.isfile(args.model_file) or not os.path.isfile(args.scaler_file):
+        logger.error("Faltan modelo o scaler")
+        exit(-1)
+
+    df, X_scaled = load_and_transform(args.input_file, args.scaler_file)
+    predict_and_save(df, X_scaled, args.model_file, args.predictions_file)
 
 if __name__ == "__main__":
     main()
