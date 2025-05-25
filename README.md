@@ -1,6 +1,6 @@
 ---
 
-### 🚲 Bike Sharing Demand - Kaggle Challenge
+## 🚲 Bike Sharing Demand - Kaggle Challenge
 
 ---
 
@@ -61,7 +61,7 @@ El conjunto de datos fue provisto por **Hadi Fanaee Tork** y es parte del reposi
 
 ---
 
-En esta fase vamos a unirnos a la competencia de Kaggle, y explorar el Notebook **(EDA)_Bike_Sharing_Demand.ipynb**. 
+En esta fase vamos a unirnos a la competencia de Kaggle y explorar el Notebook **(EDA)_Bike_Sharing_Demand.ipynb**. 
 
 #### 🔧 Requisitos previos
 
