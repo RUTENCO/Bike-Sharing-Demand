@@ -1,4 +1,3 @@
----
 ## 🚲 Bike Sharing Demand - Kaggle Challenge
 
 ### 📌 Descripción del reto
@@ -151,6 +150,7 @@ Haz clic en Make Submission.
 
 Kaggle calculará la puntuación basada en la métrica RMSLE.
 
+---
 
 ## ⚙️ Fase 2 – Despliegue en contenedor Docker
 
@@ -192,6 +192,7 @@ docker build -t bikeshare .
 
 - . → indica que el contexto (Dockerfile y scripts) está en el directorio actual.
 
+---
 
 ### 🧠 2. Entrenamiento del modelo
 
@@ -244,6 +245,8 @@ Explicación de cada parte:
    
   - scaler.pkl → el objeto StandardScaler para procesar test.
 
+---
+
 ### 🔮 3. Generar predicciones
 
 Con el modelo y el scaler ya en data/, monta de nuevo y corre:
@@ -286,6 +289,7 @@ Qué hace predict.py
       2011-01-20 01:00:00, 8
       …
       ```
+---
 
 ### ✅ Verificación
 
@@ -339,6 +343,7 @@ Explicación paso a paso:
   - `-c "ls -l /data"`
    Le dice a bash que ejecute el comando ls -l /data.
 
+---
 
 Con esto tendrás un contendor reproducible que:
 
