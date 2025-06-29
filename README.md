@@ -432,15 +432,44 @@ Esta fase expone un modelo predictivo como servicio REST, con dos endpoints:
 
      
 
-### 📦 Requisitos previos
+### 🔧 Requisitos previos
 
-Docker instalado en el sistema.
+- Docker instalado en el sistema.
 
-Los archivos model.pkl, scaler.pkl y train.csv deben estar en el directorio data ubicado una carpeta arriba de fase-3.
+- Los archivos model.pkl, scaler.pkl y train.csv deben estar en el directorio data ubicado una carpeta arriba de fase-3.
 
+- Antes de construir la imagen de la fase 3 (bikeshare-api), es necesario que hayas construido la imagen de la fase 2, llamada bikeshare, ya que esta se usa como base en el Dockerfile.
 
+### 🧱 Paso 1 – Construir la imagen base de la Fase 2
 
+Desde el directorio fase-2/
+
+En Windows (PowerShell)
+   ```bash
+   cd .\fase-3
+   ```
+
+En Linux / macOS (Bash)
+   ```bash
+   cd fase-2
+   ```
+Cambia el directorio actual a la carpeta fase-2.
+
+ejecuta:
+   ```bash
+   docker build -t bikeshare .
+   ```
+
+   docker build: inicia la construcción de una imagen.
+
+   -t bikeshare: etiqueta la imagen como bikeshare.
+
+   .: indica que use el Dockerfile del directorio actual.
+
+   
 ### 💪 Construcción del contenedor Docker
+
+Desde el directorio fase-3/
 
    En Windows (PowerShell)
    ```bash
@@ -527,6 +556,11 @@ Ejecuta el script client.py, el cual hace una petición POST a /predict y luego 
 
 Este script sirve como prueba automatizada de que el API REST está funcionando.
 
+Posible resultado:
+   ```bash
+   Predict response: {'count': [5, 2]}
+   Train response: {'message': 'Modelo y scaler actualizados correctamente.'}
+   ```
 
 ### 🚮 Detener el contenedor
 
