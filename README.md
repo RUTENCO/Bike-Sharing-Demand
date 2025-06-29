@@ -446,7 +446,7 @@ Desde el directorio fase-2/
 
 En Windows (PowerShell)
    ```bash
-   cd .\fase-3
+   cd .\fase-2
    ```
 
 En Linux / macOS (Bash)
