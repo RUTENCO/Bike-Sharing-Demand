@@ -420,7 +420,7 @@ Con esto tendrás un contendor reproducible que:
 
 ---
 
-🚀 Fase 3 - API REST
+## 🚀 Fase 3 - API REST
 
 ---
 
@@ -429,3 +429,120 @@ Esta fase expone un modelo predictivo como servicio REST, con dos endpoints:
    - POST /predict: devuelve predicciones a partir de datos JSON.
 
    - POST /train: reentrena el modelo con el CSV /data/train.csv y actualiza los artefactos.
+
+     
+
+### 📦 Requisitos previos
+
+Docker instalado en el sistema.
+
+Los archivos model.pkl, scaler.pkl y train.csv deben estar en el directorio data ubicado una carpeta arriba de fase-3.
+
+
+
+### 💪 Construcción del contenedor Docker
+
+   En Windows (PowerShell)
+   ```bash
+   cd .\fase-3
+   ```
+
+   Cambia el directorio actual a la carpeta fase-3.
+
+   En Windows (PowerShell)
+   ```bash
+   docker build -t bikeshare-api .
+   ```
+   docker build: crea una imagen Docker.
+
+   -t bikeshare-api: le da el nombre "bikeshare-api" a la imagen.
+
+   .: usa el Dockerfile en el directorio actual.
+
+   En Linux / macOS (Bash)
+   ```bash
+   cd fase-3
+   ```
+
+   Cambia el directorio actual a la carpeta fase-3.
+   
+   En Linux / macOS (Bash)
+   ```bash
+   docker build -t bikeshare-api .
+   ```
+
+   docker build: construye la imagen Docker.
+
+   -t bikeshare-api: nombra la imagen.
+
+   .: ruta al Dockerfile (directorio actual).
+
+
+### 📊 Ejecución del contenedor
+
+   En Windows (PowerShell)
+   ```bash
+   docker run -d --rm `
+   -v "${PWD}\..\data:/data" `
+   -p 5000:5000 `
+   --name bikeshare-api `
+   bikeshare-api
+   ```
+
+   docker run: ejecuta un contenedor.
+
+   -d: lo ejecuta en segundo plano (detached).
+
+   --rm: elimina el contenedor al detenerse.
+
+   -v "${PWD}\..\data:/data": monta el directorio ../data como volumen en /data dentro del contenedor.
+
+   -p 5000:5000: expone el puerto 5000 del contenedor en localhost:5000.
+
+   --name bikeshare-api: nombre del contenedor.
+
+   bikeshare-api: imagen que se quiere correr.
+
+   En Linux / macOS (Bash)
+   ```bash
+   docker run -d --rm \
+   -v "$(pwd)/../data:/data" \
+   -p 5000:5000 \
+   --name bikeshare-api \
+   bikeshare-api
+   ```
+
+   $(pwd)/../data:/data: monta el volumen correctamente en Linux/macOS.
+
+
+### 📆 Probar el API con client.py
+
+Una vez que el contenedor esté corriendo, ejecuta:
+
+   ```bash
+   python client.py
+   ```
+
+Ejecuta el script client.py, el cual hace una petición POST a /predict y luego a /train.
+
+Este script sirve como prueba automatizada de que el API REST está funcionando.
+
+
+### 🚮 Detener el contenedor
+
+   ```bash
+   docker stop bikeshare-api
+   ```
+
+   Detiene el contenedor llamado bikeshare-api (si no usaste --rm).
+   
+
+### 📌 Endpoints disponibles
+
+  - POST /predict: Recibe JSON con datos. Devuelve la predicción de bicicletas.
+   
+  - POST /train: Reentrena el modelo con train.csv y actualiza los artefactos.
+
+
+
+
