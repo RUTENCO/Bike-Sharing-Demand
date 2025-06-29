@@ -440,7 +440,7 @@ Esta fase expone un modelo predictivo como servicio REST, con dos endpoints:
 
 - Antes de construir la imagen de la fase 3 (bikeshare-api), es necesario que hayas construido la imagen de la fase 2, llamada bikeshare, ya que esta se usa como base en el Dockerfile.
 
-### 🧱 Paso 1 – Construir la imagen base de la Fase 2
+### 🧱 Construir la imagen base de la Fase 2
 
 Desde el directorio fase-2/
 
