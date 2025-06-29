@@ -1,4 +1,14 @@
-# apirest.py
+
+"""
+API REST para el proyecto Bike Sharing Demand
+
+Expone dos endpoints:
+- POST /predict: recibe datos en JSON y devuelve predicciones de demanda de bicicletas.
+- POST /train: entrena nuevamente el modelo usando el archivo CSV de entrenamiento.
+
+Este servicio está diseñado para ejecutarse dentro de un contenedor Docker,
+con los artefactos (modelo, scaler y CSV) montados en el volumen /data.
+"""
 
 from flask import Flask, request, jsonify
 import joblib
