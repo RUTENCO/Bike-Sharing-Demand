@@ -57,7 +57,7 @@ El conjunto de datos fue provisto por **Hadi Fanaee Tork** y es parte del reposi
 
 ---
 
-### 🧠 Fase 1 - Exploración y Modelado con Notebook
+## 🧠 Fase 1 - Exploración y Modelado con Notebook
 
 ---
 
@@ -416,4 +416,16 @@ Con esto tendrás un contendor reproducible que:
    
   - Predice y genera el CSV listo para subir a Kaggle.
    
-  - Mantiene tu carpeta data/ como único punto de montaje, evitando confusiones con rutas.      
+  - Mantiene tu carpeta data/ como único punto de montaje, evitando confusiones con rutas.
+
+---
+
+🚀 Fase 3 - API REST
+
+---
+
+Esta fase expone un modelo predictivo como servicio REST, con dos endpoints:
+
+   - POST /predict: devuelve predicciones a partir de datos JSON.
+
+   - POST /train: reentrena el modelo con el CSV /data/train.csv y actualiza los artefactos.
